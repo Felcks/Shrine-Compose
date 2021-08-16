@@ -9,16 +9,18 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.matheuscorrea.shrine.CreditCard
 import com.matheuscorrea.shrine.SampleCreditCard
 import com.matheuscorrea.shrine.ui.theme.ShrineTheme
 
 @Composable
-fun CheckoutCouponItem(modifier: Modifier = Modifier,  bottomDividerThickness: Dp = 0.dp) {
+fun CheckoutCouponItem(modifier: Modifier = Modifier, bottomDividerThickness: Dp = 0.dp) {
     val (text, onTextChange) = remember { mutableStateOf("") }
     Row(
         modifier = Modifier
@@ -34,7 +36,6 @@ fun CheckoutCouponItem(modifier: Modifier = Modifier,  bottomDividerThickness: D
         Column(
             verticalArrangement = Arrangement.Top,
             modifier = Modifier
-                .padding(end = 16.dp)
                 .weight(5f)
         ) {
             Divider(color = MaterialTheme.colors.onSecondary.copy(alpha = 0.3f))
@@ -43,8 +44,13 @@ fun CheckoutCouponItem(modifier: Modifier = Modifier,  bottomDividerThickness: D
                 text = "Have a Promo Code?".uppercase(),
                 style = MaterialTheme.typography.body2
             )
-            Spacer(modifier = Modifier.height(16.dp))
-            OutlinedTextField(value = text, onValueChange = onTextChange)
+            Spacer(modifier = Modifier.height(8.dp))
+            OutlinedTextField(
+                value = text, onValueChange = onTextChange,
+                textStyle = MaterialTheme.typography.body2,
+                modifier = Modifier
+                    .padding(vertical = 0.dp),
+            )
             Spacer(modifier = Modifier.height(16.dp))
             Divider(
                 color = MaterialTheme.colors.onSecondary.copy(alpha = 0.3f),

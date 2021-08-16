@@ -2,10 +2,15 @@ package com.matheuscorrea.shrine.ui.pages
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.matheuscorrea.shrine.ui.theme.ShrineTheme
 import com.matheuscorrea.shrine.ui.widgets.CheckoutCardItem
 import com.matheuscorrea.shrine.ui.widgets.CheckoutCouponItem
@@ -13,33 +18,63 @@ import com.matheuscorrea.shrine.ui.widgets.CheckoutShippingItem
 import com.matheuscorrea.shrine.ui.widgets.SummarizedPayment
 
 @Composable
-private fun CheckoutHeader() {
+private fun CheckoutHeader(navController: NavController) {
     Row(
         modifier = Modifier
-            .fillMaxWidth()
-            .padding(top = 16.dp, bottom = 16.dp, start = 48.dp, end = 16.dp)
-    ) {
+            .fillMaxWidth().padding(vertical = 4.dp),
+        verticalAlignment = Alignment.CenterVertically,
+    ){
+        IconButton(onClick = {
+                navController.popBackStack()
+            }) {
+                Icon(
+                    imageVector = Icons.Default.ArrowBack,
+                    contentDescription = "Checkout back arrow"
+                )
+            }
         Text(
-            "Checkout",
+            "Checkout".uppercase(),
             style = MaterialTheme.typography.subtitle1
         )
     }
+//    TopAppBar(
+//        title = {
+//            Text(
+//                "Checkout",
+//                style = MaterialTheme.typography.subtitle1
+//            )
+//        },
+//        backgroundColor = MaterialTheme.colors.secondary,
+//        elevation = 0.dp,
+//        navigationIcon = {
+//            IconButton(onClick = {
+//                navController.popBackStack()
+//            }) {
+//                Icon(
+//                    imageVector = Icons.Default.ArrowBack,
+//                    contentDescription = "Checkout back arrow"
+//                )
+//            }
+//        }
+//
+//    )
 }
 
 @Preview(showBackground = true)
 @Composable
 fun CheckoutHeaderPreview() {
     ShrineTheme {
+        val navController = rememberNavController()
         Surface(
             color = MaterialTheme.colors.secondary
         ) {
-            CheckoutHeader()
+            CheckoutHeader(navController = navController)
         }
     }
 }
 
 @Composable
-fun Checkout() {
+fun Checkout(navController: NavController) {
     Scaffold(
         content = {
             Surface(
@@ -47,7 +82,6 @@ fun Checkout() {
                 modifier = Modifier.fillMaxHeight()
             ) {
                 Column {
-                    CheckoutHeader()
                     CheckoutShippingItem()
                     CheckoutCardItem()
                     CheckoutCouponItem(bottomDividerThickness = 1.dp)
@@ -55,9 +89,18 @@ fun Checkout() {
                 }
             }
         },
+        topBar = {
+            Surface(
+                color = MaterialTheme.colors.secondary
+            ) {
+                CheckoutHeader(navController)
+            }
+        },
         floatingActionButton = {
             Button(
-                onClick = {}, modifier = Modifier
+                onClick = {
+                    navController.navigate("order_completed")
+                }, modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 16.dp)
             ) {
@@ -72,6 +115,7 @@ fun Checkout() {
 @Composable
 fun CheckoutPreview() {
     ShrineTheme {
-        Checkout()
+        val navController = rememberNavController()
+        Checkout(navController)
     }
 }

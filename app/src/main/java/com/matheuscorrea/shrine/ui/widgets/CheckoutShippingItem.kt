@@ -21,7 +21,7 @@ fun CheckoutShippingItem(item: Shipping = SampleShippingData) {
             .fillMaxWidth(),
         verticalAlignment = Alignment.Top
     ) {
-        IconButton(onClick = {}, modifier = Modifier.padding(top = 4.dp)) {
+        IconButton(onClick = {}, modifier = Modifier.padding(top = 8.dp)) {
             Icon(
                 imageVector = Icons.Default.CarRepair,
                 contentDescription = "Car rental icon",
@@ -29,32 +29,36 @@ fun CheckoutShippingItem(item: Shipping = SampleShippingData) {
         }
         Column(
             verticalArrangement = Arrangement.Top,
-            modifier = Modifier
-                .padding(end = 16.dp)
-                .weight(5f)
         ) {
             Divider(color = MaterialTheme.colors.onSecondary.copy(alpha = 0.3f))
             Spacer(modifier = Modifier.height(16.dp))
-            Text(
-                text = "Shipping".uppercase(),
-                style = MaterialTheme.typography.body2
-            )
-            Text(
-                text = "${item.number} ${item.street}, ${item.complement}",
-                style = MaterialTheme.typography.subtitle2,
-            )
-            Text(
-                text = "${item.city}, ${item.zipCode}",
-                style = MaterialTheme.typography.subtitle2,
-            )
-            Spacer(modifier = Modifier.height(16.dp))
+            Row(
+                horizontalArrangement = Arrangement.SpaceBetween,
+                modifier = Modifier.padding(bottom = 16.dp),
+            ) {
+                Column(verticalArrangement = Arrangement.Center, modifier = Modifier.weight(5f)) {
+                    Text(
+                        text = "Shipping".uppercase(),
+                        style = MaterialTheme.typography.body2
+                    )
+                    Text(
+                        text = "${item.number} ${item.street}, ${item.complement}",
+                        style = MaterialTheme.typography.subtitle2,
+                    )
+                    Text(
+                        text = "${item.city}, ${item.zipCode}",
+                        style = MaterialTheme.typography.subtitle2,
+                    )
+                }
+                IconButton(onClick = {}, modifier = Modifier.weight(1f)) {
+                    Icon(
+                        imageVector = Icons.Default.Edit,
+                        contentDescription = "Shipping edit icon",
+                    )
+                }
+            }
         }
-        IconButton(onClick = {}, modifier = Modifier.weight(1f)) {
-            Icon(
-                imageVector = Icons.Default.Edit,
-                contentDescription = "Shipping edit icon",
-            )
-        }
+
     }
 }
 

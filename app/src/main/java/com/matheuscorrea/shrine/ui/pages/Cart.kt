@@ -19,6 +19,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.matheuscorrea.shrine.ui.theme.ShrineTheme
 import com.matheuscorrea.shrine.ui.widgets.CartItem
 import com.matheuscorrea.shrine.ui.widgets.SummarizedPayment
@@ -26,7 +28,8 @@ import com.matheuscorrea.shrine.ui.widgets.SummarizedPayment
 @Composable
 private fun CartHeader(cartSize: Int) {
     Row(
-        verticalAlignment = Alignment.CenterVertically
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = Modifier.padding(vertical = 4.dp)
     ) {
         IconButton(
             onClick = {},
@@ -65,6 +68,7 @@ fun CartHeaderPreview() {
 
 @Composable
 fun Cart(
+    navController: NavController,
     items: List<ItemData> = SampleItemsData
 ) {
     Scaffold(
@@ -93,7 +97,9 @@ fun Cart(
         },
         floatingActionButton = {
             Button(
-                onClick = {}, modifier = Modifier
+                onClick = {
+                    navController.navigate("checkout")
+                }, modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 16.dp)
             ) {
@@ -108,7 +114,8 @@ fun Cart(
 @Composable
 fun CartPreview() {
     ShrineTheme {
-        Cart()
+        val navController = rememberNavController()
+        Cart(navController = navController)
     }
 }
 
