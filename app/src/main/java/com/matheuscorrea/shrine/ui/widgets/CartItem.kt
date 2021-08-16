@@ -18,13 +18,16 @@ import com.matheuscorrea.shrine.SampleItemsData
 import com.matheuscorrea.shrine.ui.theme.ShrineTheme
 
 @Composable
-fun CartItem(item: ItemData, bottomDividerThickness: Dp = 0.dp) {
+fun CartItem(item: ItemData, bottomDividerThickness: Dp = 0.dp,
+             onRemoveClick: (itemData: ItemData) -> Unit) {
     Row(
         modifier = Modifier
             .fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        IconButton(onClick = {}) {
+        IconButton(
+            onClick = { onRemoveClick.invoke(item) }
+        ) {
             Icon(
                 imageVector = Icons.Default.RemoveCircleOutline,
                 contentDescription = "Remove item icon"
@@ -81,7 +84,7 @@ fun CartItemPreview() {
         Surface(
             color = MaterialTheme.colors.secondary
         ) {
-            CartItem(SampleItemsData.first())
+            CartItem(SampleItemsData.first(), 0.dp, {})
         }
     }
 }

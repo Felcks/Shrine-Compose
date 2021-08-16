@@ -109,7 +109,8 @@ fun OrderCompleted(navController: NavController) {
                                             0,
                                             2
                                         ).size - 1
-                                    ) 1.dp else 0.dp
+                                    ) 1.dp else 0.dp,
+                                    onRemoveClick = {},
                                 )
                             }
                         }

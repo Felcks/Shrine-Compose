@@ -11,13 +11,12 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.KeyboardArrowUp
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.matheuscorrea.shrine.ItemData
@@ -76,8 +75,9 @@ fun CartHeaderPreview() {
 @ExperimentalAnimationApi
 @Composable
 fun Cart(
+    items: List<ItemData> = SampleItemsData,
+    onRemoveClick: (itemData: ItemData) -> Unit,
     navController: NavController,
-    items: List<ItemData> = SampleItemsData
 ) {
     val expanded = remember { mutableStateOf(true) }
     val onClick = {
@@ -92,14 +92,14 @@ fun Cart(
                 Column(Modifier.animateContentSize()) {
                     CartHeader(cartSize = items.size, expanded.value, onClick)
                     AnimatedVisibility(visible = expanded.value) {
-
                         LazyColumn(
                             modifier = Modifier.weight(10f)
                         ) {
                             itemsIndexed(items) { index, it ->
                                 CartItem(
                                     item = it,
-                                    bottomDividerThickness = if (index == items.size - 1) 1.dp else 0.dp
+                                    bottomDividerThickness = if (index == items.size - 1) 1.dp else 0.dp,
+                                    onRemoveClick = onRemoveClick
                                 )
                             }
                         }
@@ -126,12 +126,26 @@ fun Cart(
 }
 
 @ExperimentalAnimationApi
+@Composable
+fun CartScreen(
+    purchaseViewModel: PurchaseViewModel,
+    navController: NavController){
+    val items = purchaseViewModel.state.collectAsState()
+    Cart(items.value, purchaseViewModel::removeItem, navController)
+}
+
+@ExperimentalAnimationApi
 @Preview(showBackground = true)
 @Composable
 fun CartPreview() {
     ShrineTheme {
         val navController = rememberNavController()
-        Cart(navController = navController)
+        val items = SampleItemsData
+        Cart(
+            items,
+            {},
+            navController = navController
+        )
     }
 }
 
