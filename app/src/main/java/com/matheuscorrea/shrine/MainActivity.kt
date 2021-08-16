@@ -11,6 +11,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.matheuscorrea.shrine.ui.pages.Cart
 import com.matheuscorrea.shrine.ui.pages.Checkout
 import com.matheuscorrea.shrine.ui.pages.OrderCompleted
 import com.matheuscorrea.shrine.ui.theme.ShrineTheme

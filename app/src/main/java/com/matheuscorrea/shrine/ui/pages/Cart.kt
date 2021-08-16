@@ -1,41 +1,42 @@
-package com.matheuscorrea.shrine
+package com.matheuscorrea.shrine.ui.pages
 
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.gestures.Orientation
-import androidx.compose.foundation.gestures.scrollable
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.animation.animateContentSize
+import androidx.compose.animation.core.updateTransition
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowDown
-import androidx.compose.material.icons.filled.RemoveCircleOutline
+import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.matheuscorrea.shrine.ItemData
+import com.matheuscorrea.shrine.SampleItemsData
 import com.matheuscorrea.shrine.ui.theme.ShrineTheme
 import com.matheuscorrea.shrine.ui.widgets.CartItem
 import com.matheuscorrea.shrine.ui.widgets.SummarizedPayment
 
 @Composable
-private fun CartHeader(cartSize: Int) {
+private fun CartHeader(cartSize: Int, expanded: Boolean, onClick: () -> Unit) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier.padding(vertical = 4.dp)
     ) {
         IconButton(
-            onClick = {},
+            onClick = onClick,
         ) {
             Icon(
-                imageVector = Icons.Default.KeyboardArrowDown,
+                imageVector = if (expanded) Icons.Default.KeyboardArrowUp else Icons.Default.KeyboardArrowDown,
                 contentDescription = "Collapse cart icon"
             )
         }
@@ -61,32 +62,46 @@ fun CartHeaderPreview() {
             Modifier.fillMaxWidth(),
             color = MaterialTheme.colors.secondary
         ) {
-            CartHeader(cartSize = 15)
+            val expanded = remember {
+                mutableStateOf(true)
+            }
+            val onClick = {
+                expanded.value = !expanded.value
+            }
+            CartHeader(cartSize = 15, expanded = true, onClick = onClick)
         }
     }
 }
 
+@ExperimentalAnimationApi
 @Composable
 fun Cart(
     navController: NavController,
     items: List<ItemData> = SampleItemsData
 ) {
+    val expanded = remember { mutableStateOf(true) }
+    val onClick = {
+        expanded.value = !expanded.value
+    }
     Scaffold(
         content = {
             Surface(
                 color = MaterialTheme.colors.secondary,
                 modifier = Modifier.fillMaxHeight()
             ) {
-                Column {
-                    CartHeader(cartSize = items.size)
-                    LazyColumn(
-                        modifier = Modifier.weight(10f)
-                    ) {
-                        itemsIndexed(items) { index, it ->
-                            CartItem(
-                                item = it,
-                                bottomDividerThickness = if (index == items.size - 1) 1.dp else 0.dp
-                            )
+                Column(Modifier.animateContentSize()) {
+                    CartHeader(cartSize = items.size, expanded.value, onClick)
+                    AnimatedVisibility(visible = expanded.value) {
+
+                        LazyColumn(
+                            modifier = Modifier.weight(10f)
+                        ) {
+                            itemsIndexed(items) { index, it ->
+                                CartItem(
+                                    item = it,
+                                    bottomDividerThickness = if (index == items.size - 1) 1.dp else 0.dp
+                                )
+                            }
                         }
                     }
                     SummarizedPayment(
@@ -110,6 +125,7 @@ fun Cart(
     )
 }
 
+@ExperimentalAnimationApi
 @Preview(showBackground = true)
 @Composable
 fun CartPreview() {
