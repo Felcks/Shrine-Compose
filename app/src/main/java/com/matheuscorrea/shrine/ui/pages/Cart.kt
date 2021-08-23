@@ -1,8 +1,6 @@
 package com.matheuscorrea.shrine.ui.pages
 
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.ExperimentalAnimationApi
-import androidx.compose.animation.animateContentSize
+import androidx.compose.animation.*
 import androidx.compose.animation.core.updateTransition
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -91,7 +89,9 @@ fun Cart(
             ) {
                 Column(Modifier.animateContentSize()) {
                     CartHeader(cartSize = items.size, expanded.value, onClick)
-                    AnimatedVisibility(visible = expanded.value) {
+                    AnimatedVisibility(
+                        visible = expanded.value,
+                    ) {
                         LazyColumn(
                             modifier = Modifier.weight(10f)
                         ) {
@@ -129,7 +129,8 @@ fun Cart(
 @Composable
 fun CartScreen(
     purchaseViewModel: PurchaseViewModel,
-    navController: NavController){
+    navController: NavController
+) {
     val items = purchaseViewModel.state.collectAsState()
     Cart(items.value, purchaseViewModel::removeItem, navController)
 }

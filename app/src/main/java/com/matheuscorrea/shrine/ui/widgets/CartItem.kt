@@ -1,13 +1,19 @@
 package com.matheuscorrea.shrine.ui.widgets
 
+import androidx.compose.animation.core.Animatable
+import androidx.compose.animation.core.FastOutSlowInEasing
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.RemoveCircleOutline
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -18,10 +24,27 @@ import com.matheuscorrea.shrine.SampleItemsData
 import com.matheuscorrea.shrine.ui.theme.ShrineTheme
 
 @Composable
-fun CartItem(item: ItemData, bottomDividerThickness: Dp = 0.dp,
-             onRemoveClick: (itemData: ItemData) -> Unit) {
+fun CartItem(
+    item: ItemData, bottomDividerThickness: Dp = 0.dp,
+    onRemoveClick: (itemData: ItemData) -> Unit
+) {
+    val animatedProgress = remember {
+        Animatable(initialValue = 0.7f)
+    }
+    LaunchedEffect(key1 = Unit) {
+        animatedProgress.animateTo(
+            targetValue = 1.0f,
+            animationSpec = tween(300, easing = FastOutSlowInEasing)
+        )
+    }
+
+    val animatedModifier = Modifier.graphicsLayer(
+        scaleX = animatedProgress.value,
+        scaleY = animatedProgress.value
+    )
+
     Row(
-        modifier = Modifier
+        modifier = animatedModifier
             .fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically
     ) {
