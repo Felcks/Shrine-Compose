@@ -10,12 +10,15 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.focusable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material.*
+import androidx.compose.material.Surface
+import androidx.compose.material.TextField
+import androidx.compose.material.TextFieldDefaults
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.FilterAlt
 import androidx.compose.material.icons.outlined.WarningAmber
 import androidx.compose.material.icons.rounded.FormatListBulleted
 import androidx.compose.material.icons.rounded.Search
+import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -52,7 +55,7 @@ private fun HomeSearchBar(
         modifier = modifier
             .fillMaxWidth()
             .background(
-                color = MaterialTheme.colors.secondary,
+                color = MaterialTheme.colorScheme.secondary,
             )
     ) {
         Row(
@@ -86,7 +89,7 @@ private fun HomeSearchBar(
                     )
                     Text(
                         "Shrine".uppercase(),
-                        style = MaterialTheme.typography.subtitle1,
+                        style = MaterialTheme.typography.bodyLarge,
                         textAlign = TextAlign.Start,
                         modifier = Modifier
                             .padding(start = 48.dp)
@@ -105,7 +108,7 @@ private fun HomeSearchBar(
                         colors = TextFieldDefaults.textFieldColors(
                             backgroundColor = Color.Transparent,
                             unfocusedIndicatorColor = Color.Transparent,
-                            focusedIndicatorColor = MaterialTheme.colors.onPrimary,
+                            focusedIndicatorColor = MaterialTheme.colorScheme.onPrimary,
                         ),
                         onValueChange = onValueChange,
                         trailingIcon = {
@@ -139,13 +142,12 @@ fun HomeSearchBarPreview() {
 
 @Composable
 private fun MainPage(navController: NavController, modifier: Modifier = Modifier) {
-    Card(
-        backgroundColor = MaterialTheme.colors.surface,
-        shape = MaterialTheme.shapes.large,
+    Surface(
+        color = MaterialTheme.colorScheme.surface,
         modifier = modifier
             .fillMaxSize()
     ) {
-        Column() {
+        Column {
             Row(
                 horizontalArrangement = Arrangement.End,
                 modifier = Modifier
@@ -161,7 +163,7 @@ private fun MainPage(navController: NavController, modifier: Modifier = Modifier
                 }
             }
             Spacer(modifier = Modifier.height(32.dp))
-            Card {
+            Surface {
                 Image(
                     painter = painterResource(id = R.drawable.photo_0),
                     contentDescription = "Image for: ${0}",
@@ -172,7 +174,7 @@ private fun MainPage(navController: NavController, modifier: Modifier = Modifier
                 )
             }
             Spacer(modifier = Modifier.height(32.dp))
-            Card(
+            Surface(
                 modifier = Modifier
                     .fillMaxWidth()
                     .align(Alignment.End)
@@ -185,7 +187,7 @@ private fun MainPage(navController: NavController, modifier: Modifier = Modifier
                 )
             }
             Spacer(modifier = Modifier.height(32.dp))
-            Card() {
+            Surface {
                 Image(
                     painter = painterResource(id = R.drawable.photo_2),
                     contentDescription = "Image for: ${0}",
@@ -194,7 +196,7 @@ private fun MainPage(navController: NavController, modifier: Modifier = Modifier
                 )
             }
             Spacer(modifier = Modifier.height(32.dp))
-            Card(
+            Surface(
                 modifier = Modifier
                     .fillMaxWidth()
                     .align(Alignment.End)
@@ -248,7 +250,7 @@ private fun CategoryItem(
             Icon(
                 imageVector = Icons.Outlined.WarningAmber,
                 contentDescription = "Icon behind category item $position",
-                tint = MaterialTheme.colors.primaryVariant,
+                tint = MaterialTheme.colorScheme.primary,
 
                 modifier = Modifier
                     .fillMaxWidth()
@@ -259,7 +261,7 @@ private fun CategoryItem(
         Text(
             text.uppercase(),
             textAlign = TextAlign.Center,
-            style = MaterialTheme.typography.subtitle2,
+            style = MaterialTheme.typography.bodyMedium,
             modifier = modifier
                 .align(Alignment.Center)
         )
@@ -273,7 +275,7 @@ private fun CategoryItem(
 fun CategoryItemPreview() {
     ShrineTheme {
         val navController = rememberNavController()
-        Surface(color = MaterialTheme.colors.secondary) {
+        Surface(color = MaterialTheme.colorScheme.secondary) {
             CategoryItem(
                 text = "featured",
                 navController = navController,
@@ -284,6 +286,7 @@ fun CategoryItemPreview() {
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @ExperimentalAnimationApi
 @Composable
 fun HomeScreen(

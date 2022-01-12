@@ -4,10 +4,10 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.Button
-import androidx.compose.material.Card
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material3.Button
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -16,9 +16,8 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun ShrineTheme(content: @Composable() () -> Unit) {
     MaterialTheme(
-        colors = ShrineLightColorPalette,
+        colorScheme = ShrineLightColorScheme,
         typography = Typography,
-        shapes = Shapes,
         content = content
     )
 }
@@ -35,7 +34,7 @@ fun ThemeTest() {
                 Text("Button1")
             }
             Spacer(Modifier.height(16.dp))
-            Card {
+            Surface {
                 Column(
                     Modifier.padding(16.dp)
                 ) {
@@ -49,7 +48,7 @@ fun ThemeTest() {
                 Text("Button1")
             }
             Spacer(Modifier.height(16.dp))
-            Card {
+            Surface {
                 Column(
                     Modifier.padding(16.dp)
                 ) {
@@ -67,27 +66,19 @@ fun TypographyThemeTest() {
         Column {
             Text(
                 "H1 / Rubik Light",
-                style = MaterialTheme.typography.h1
+                style = MaterialTheme.typography.displayLarge
             )
             Text(
                 "H2 / Rubik Light",
-                style = MaterialTheme.typography.h2
+                style = MaterialTheme.typography.displayMedium
             )
             Text(
                 "H3 / Rubik Regular",
-                style = MaterialTheme.typography.h3
+                style = MaterialTheme.typography.displaySmall
             )
             Text(
                 "Body1 / Rubik Regular",
-                style = MaterialTheme.typography.body1
-            )
-            Text(
-                "Button / Rubik Medium".uppercase(),
-                style = MaterialTheme.typography.button
-            )
-            Text(
-                "Caption / Rubik Regular",
-                style = MaterialTheme.typography.caption
+                style = MaterialTheme.typography.bodyMedium
             )
         }
     }

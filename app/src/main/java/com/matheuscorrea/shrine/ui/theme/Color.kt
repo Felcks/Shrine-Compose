@@ -1,6 +1,7 @@
 package com.matheuscorrea.shrine.ui.theme
 
 import androidx.compose.material.lightColors
+import androidx.compose.material3.lightColorScheme
 import androidx.compose.ui.graphics.Color
 
 val ShrinePink10 = Color(0xfffffbfa)
@@ -13,6 +14,19 @@ val ShrinePink900 = Color(0xff442c2e)
 internal val ShrineLightColorPalette = lightColors(
     primary = ShrinePink100,
     primaryVariant = ShrinePink500,
+    secondary = ShrinePink50,
+    background = ShrinePink100,
+    surface = ShrinePink10,
+    error = Color(0xffc5032b),
+    onPrimary = ShrinePink900,
+    onSecondary = ShrinePink900,
+    onBackground = ShrinePink900,
+    onSurface = ShrinePink900,
+    onError = ShrinePink10
+)
+
+val ShrineLightColorScheme = lightColorScheme(
+    primary = ShrinePink100,
     secondary = ShrinePink50,
     background = ShrinePink100,
     surface = ShrinePink10,

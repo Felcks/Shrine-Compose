@@ -1,6 +1,6 @@
 package com.matheuscorrea.shrine.ui.theme
 
-import androidx.compose.material.Typography
+import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
@@ -17,81 +17,81 @@ private val Rubik = FontFamily(
 
 // Set of Material typography styles to start with
 val Typography = Typography(
-    h1 = TextStyle(
+    displayLarge = TextStyle(
         fontFamily = Rubik,
         fontWeight = FontWeight.Light,
         fontSize = 96.sp,
         letterSpacing = (-1.5).sp
     ),
-    h2 = TextStyle(
+    displayMedium = TextStyle(
         fontFamily = Rubik,
         fontWeight = FontWeight.Light,
         fontSize = 60.sp,
         letterSpacing = (-0.5).sp
     ),
-    h3 = TextStyle(
+    displaySmall = TextStyle(
         fontFamily = Rubik,
         fontWeight = FontWeight.Normal,
         fontSize = 48.sp,
         letterSpacing = 0.sp
     ),
-    h4 = TextStyle(
+    headlineLarge = TextStyle(
         fontFamily = Rubik,
         fontWeight = FontWeight.Normal,
         fontSize = 34.sp,
         letterSpacing = 0.25.sp
     ),
-    h5 = TextStyle(
+    headlineMedium = TextStyle(
         fontFamily = Rubik,
         fontWeight = FontWeight.Medium,
         fontSize = 24.sp,
         letterSpacing = 0.15.sp
     ),
-    h6 = TextStyle(
+    headlineSmall = TextStyle(
         fontFamily = Rubik,
         fontWeight = FontWeight.Medium,
         fontSize = 20.sp,
         letterSpacing = 0.15.sp
     ),
-    subtitle1 = TextStyle(
+    titleLarge = TextStyle(
         fontFamily = Rubik,
         fontWeight = FontWeight.Medium,
         fontSize = 16.sp,
         letterSpacing = 0.15.sp
     ),
-    subtitle2 = TextStyle(
+    titleMedium = TextStyle(
         fontFamily = Rubik,
         fontWeight = FontWeight.Medium,
         fontSize = 14.sp,
         letterSpacing = 0.1.sp
     ),
-    body1 = TextStyle(
+    bodyLarge = TextStyle(
         fontFamily = Rubik,
         fontWeight = FontWeight.Normal,
         fontSize = 16.sp
     ),
-    body2 = TextStyle(
+    bodyMedium = TextStyle(
         fontFamily = Rubik,
         fontWeight = FontWeight.Normal,
         fontSize = 14.sp,
         letterSpacing = 0.25.sp
     ),
-    button = TextStyle(
+    labelLarge = TextStyle(
         fontFamily = Rubik,
         fontWeight = FontWeight.Medium,
         fontSize = 14.sp,
         letterSpacing = 1.sp
     ),
-    caption = TextStyle(
-        fontFamily = Rubik,
-        fontWeight = FontWeight.Normal,
-        fontSize = 12.sp,
-        letterSpacing = 0.4.sp
-    ),
-    overline = TextStyle(
+    labelMedium = TextStyle(
         fontFamily = Rubik,
         fontWeight = FontWeight.Normal,
         fontSize = 14.sp,
         letterSpacing = 1.5.sp
+    ),
+    labelSmall = TextStyle(
+        fontFamily = Rubik,
+        fontWeight = FontWeight.Normal,
+        fontSize = 12.sp,
+        letterSpacing = 0.4.sp
     ),
 )
